@@ -1,0 +1,1145 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>30-Day Wellness & Study Plan</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Poppins:wght@400;500;600;700;800&family=Courier+Prime:wght@400;700&display=swap" rel="stylesheet">
+    <!-- Lucide Icons CDN -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <!-- Background glowing shapes for visual depth -->
+    <div class="bg-glow bg-glow-1"></div>
+    <div class="bg-glow bg-glow-2"></div>
+    <div class="bg-glow bg-glow-3"></div>
+
+    <div class="container">
+        <!-- HEADER -->
+        <header class="header">
+            <div class="header-top">
+                <div class="header-title-area">
+                    <h1>🎯 30-Day Wellness & Study Plan</h1>
+                    <p>Transform Your Health, Mind & Style in 30 Days</p>
+                </div>
+                <div class="header-actions">
+                    <button id="themeToggle" class="btn btn-theme" title="Toggle Light/Dark Mode" aria-label="Toggle theme">
+                        <i data-lucide="sun" class="icon-light"></i>
+                        <i data-lucide="moon" class="icon-dark"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Stats Widgets Dashboard -->
+            <div class="stats-row">
+                <div class="stat-card">
+                    <div class="stat-icon-wrapper std-color">
+                        <i data-lucide="calendar"></i>
+                    </div>
+                    <div class="stat-content">
+                        <div class="stat-value" id="daysCompleted">0 / 30</div>
+                        <div class="stat-label">Days Adhered</div>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon-wrapper fit-color">
+                        <i data-lucide="trending-up"></i>
+                    </div>
+                    <div class="stat-content">
+                        <div class="stat-value" id="overallProgress">0%</div>
+                        <div class="stat-label">Overall Completion</div>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon-wrapper health-color">
+                        <i data-lucide="flame"></i>
+                    </div>
+                    <div class="stat-content">
+                        <div class="stat-value" id="streakDays">0 Days</div>
+                        <div class="stat-label">Current Streak</div>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon-wrapper hair-color">
+                        <i data-lucide="scale"></i>
+                    </div>
+                    <div class="stat-content">
+                        <div class="stat-value" id="weightStats">72 kg</div>
+                        <div class="stat-label">Current Weight (Target: 69-70)</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Global Progress Bar -->
+            <div class="global-progress-container">
+                <div class="global-progress-text">
+                    <span>Program Complete</span>
+                    <span id="globalProgressText">0%</span>
+                </div>
+                <div class="progress-bar">
+                    <div class="progress-fill" id="globalProgressFill" style="width: 0%;"></div>
+                </div>
+            </div>
+        </header>
+
+        <!-- NAVIGATION TABS -->
+        <nav class="tabs-nav">
+            <button class="tab-btn active" data-tab="overview"><i data-lucide="layout"></i> Overview</button>
+            <button class="tab-btn" data-tab="studies"><i data-lucide="code-2"></i> Studies</button>
+            <button class="tab-btn" data-tab="fitness"><i data-lucide="dumbell"></i> Fitness & Diet</button>
+            <button class="tab-btn" data-tab="health"><i data-lucide="heart-pulse"></i> Health & Wellness</button>
+            <button class="tab-btn" data-tab="hair"><i data-lucide="sparkles"></i> Hair Care</button>
+            <button class="tab-btn" data-tab="daily"><i data-lucide="calendar-days"></i> Daily Plan</button>
+            <button class="tab-btn" data-tab="settings"><i data-lucide="settings"></i> Settings</button>
+        </nav>
+
+        <!-- APP PANELS CONTENT -->
+        <main class="content">
+
+            <!-- OVERVIEW TAB -->
+            <section id="overview" class="panel active">
+                <div class="alert alert-warning">
+                    <div class="alert-icon"><i data-lucide="alert-triangle"></i></div>
+                    <div class="alert-content">
+                        <strong>⚠️ Important Health Note:</strong> A safe, realistic goal is 2-3kg weight loss in 30 days (0.5-1kg/week), not 10kg. This requires a 500-750 calorie deficit daily PLUS exercise. You'll see results in energy, confidence, and health—not just the scale!
+                    </div>
+                </div>
+
+                <div class="overview-grid">
+                    <div class="overview-left">
+                        <h2>📊 Your 30-Day Goals</h2>
+                        
+                        <div class="card goal-card border-study">
+                            <div class="card-header">
+                                <span class="card-tag tag-study"><i data-lucide="laptop"></i> Studies (50% of day)</span>
+                            </div>
+                            <div class="card-title">Master ML, AI, & Compiler Design</div>
+                            <p class="card-description">Deep dive into concepts + solve 200+ DSA problems on LeetCode/StriverSheet.</p>
+                            <div class="card-details">
+                                <div class="detail-item"><span class="detail-label">Daily Target:</span> 12 Hours</div>
+                                <div class="detail-item"><span class="detail-label">Division:</span> 4h ML, 3h AI, 2h Compiler Design, 3h LeetCode</div>
+                            </div>
+                        </div>
+
+                        <div class="card goal-card border-fitness">
+                            <div class="card-header">
+                                <span class="card-tag tag-fitness"><i data-lucide="zap"></i> Fitness (25% of day)</span>
+                            </div>
+                            <div class="card-title">Lose 2-3kg Healthily</div>
+                            <p class="card-description">Caloric deficit + dedicated cardio, strength, and flexibility exercise.</p>
+                            <div class="card-details">
+                                <div class="detail-item"><span class="detail-label">Daily Workout:</span> 1.5 - 2 Hours</div>
+                                <div class="detail-item"><span class="detail-label">Nutrition:</span> 1500-1800 cal/day, high-protein & hydration</div>
+                            </div>
+                        </div>
+
+                        <div class="card goal-card border-health">
+                            <div class="card-header">
+                                <span class="card-tag tag-health"><i data-lucide="heart"></i> Health & Wellness (15% of day)</span>
+                            </div>
+                            <div class="card-title">Regulate Period & Stress</div>
+                            <p class="card-description">Optimize hormonal health, establish regular sleep cycles, and manage cortisol.</p>
+                            <div class="card-details">
+                                <div class="detail-item"><span class="detail-label">Sleep:</span> 7-8 hours (Essential)</div>
+                                <div class="detail-item"><span class="detail-label">Mindset:</span> Yoga, meditation, breathing exercises</div>
+                            </div>
+                        </div>
+
+                        <div class="card goal-card border-hair">
+                            <div class="card-header">
+                                <span class="card-tag tag-hair"><i data-lucide="sparkles"></i> Hair Care (10% of day)</span>
+                            </div>
+                            <div class="card-title">Promote Hair Growth & Thickness</div>
+                            <p class="card-description">Boost scalp blood circulation, nourish hair follicles, and implement clean routines.</p>
+                            <div class="card-details">
+                                <div class="detail-item"><span class="detail-label">Daily:</span> Oil massage (10m), scalp massage, neck flow</div>
+                                <div class="detail-item"><span class="detail-label">Weekly:</span> Deep conditioning, clean washes</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="overview-right">
+                        <div class="card premium-card">
+                            <h2>🔑 Keys to Success</h2>
+                            <ul class="success-keys">
+                                <li>
+                                    <div class="key-icon"><i data-lucide="check-circle-2"></i></div>
+                                    <div class="key-text"><strong>Consistency > Perfection:</strong> Small steps daily beat sporadic big efforts. Keep moving forward!</div>
+                                </li>
+                                <li>
+                                    <div class="key-icon"><i data-lucide="check-circle-2"></i></div>
+                                    <div class="key-text"><strong>Nutrition First:</strong> Weight loss is 70% diet, 30% exercise. Focus on clean ingredients and protein.</div>
+                                </li>
+                                <li>
+                                    <div class="key-icon"><i data-lucide="check-circle-2"></i></div>
+                                    <div class="key-text"><strong>Track Progress:</strong> Log daily compliance, log weight weekly, and monitor sleep quality.</div>
+                                </li>
+                                <li>
+                                    <div class="key-icon"><i data-lucide="check-circle-2"></i></div>
+                                    <div class="key-text"><strong>Rest is Growth:</strong> 7-8h of deep sleep is non-negotiable for hormone regulation and brain performance.</div>
+                                </li>
+                                <li>
+                                    <div class="key-icon"><i data-lucide="check-circle-2"></i></div>
+                                    <div class="key-text"><strong>Stress Less:</strong> High cortisol is the enemy of weight loss, period regularity, and healthy hair.</div>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <!-- Quick Daily Stats Summary Widget -->
+                        <div class="card analytics-summary-card">
+                            <h3>Today's Completion Checklist</h3>
+                            <div class="progress-ring-section">
+                                <div class="ring-container">
+                                    <svg class="progress-ring" width="120" height="120">
+                                        <circle class="progress-ring__circle-bg" stroke="var(--border)" stroke-width="8" fill="transparent" r="50" cx="60" cy="60"/>
+                                        <circle class="progress-ring__circle" id="todayProgressRing" stroke="var(--primary)" stroke-width="8" fill="transparent" r="50" cx="60" cy="60"/>
+                                    </svg>
+                                    <div class="ring-text" id="todayProgressPercent">0%</div>
+                                </div>
+                                <div class="ring-labels">
+                                    <div class="ring-label-item"><span class="dot dot-study"></span> Studies</div>
+                                    <div class="ring-label-item"><span class="dot dot-fitness"></span> Fitness</div>
+                                    <div class="ring-label-item"><span class="dot dot-health"></span> Health</div>
+                                    <div class="ring-label-item"><span class="dot dot-hair"></span> Hair Care</div>
+                                </div>
+                            </div>
+                            <button class="btn btn-primary btn-block" onclick="switchTab('daily')">Open Active Daily Plan</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- STUDIES TAB -->
+            <section id="studies" class="panel">
+                <div class="alert alert-info">
+                    <div class="alert-icon"><i data-lucide="info"></i></div>
+                    <div class="alert-content">
+                        <strong>Study Strategy:</strong> Divide 12 hours: Morning focus on concepts (ML/AI/Compiler), Afternoon on DSA practice (LeetCode/StriverSheet). Use Pomodoro: 50min focus + 10min break.
+                    </div>
+                </div>
+
+                <div class="studies-grid">
+                    <div class="studies-left">
+                        <h2>📚 Study Syllabus Checklist</h2>
+                        
+                        <!-- ML / AI -->
+                        <div class="card category-card">
+                            <h3 class="category-title study-color"><i data-lucide="layers"></i> Machine Learning & Math (4 hours/day)</h3>
+                            <div class="checklist-group">
+                                <h4 class="week-title">Week 1-2: Fundamentals</h4>
+                                <ul class="checklist" data-category="study_ml_math">
+                                    <li class="check-item">
+                                        <label class="custom-checkbox">
+                                            <input type="checkbox" id="task_ml_1">
+                                            <span class="checkmark"></span>
+                                            <span class="task-title-text">3Blue1Brown Linear Algebra Series (10 hrs)</span>
+                                        </label>
+                                    </li>
+                                    <li class="check-item">
+                                        <label class="custom-checkbox">
+                                            <input type="checkbox" id="task_ml_2">
+                                            <span class="checkmark"></span>
+                                            <span class="task-title-text">Khan Academy Calculus & Stats foundations (8 hrs)</span>
+                                        </label>
+                                    </li>
+                                    <li class="check-item">
+                                        <label class="custom-checkbox">
+                                            <input type="checkbox" id="task_ml_3">
+                                            <span class="checkmark"></span>
+                                            <span class="task-title-text">NumPy & Pandas essentials (6 hrs)</span>
+                                        </label>
+                                    </li>
+                                </ul>
+
+                                <h4 class="week-title">Week 3-4: Core ML Algorithms</h4>
+                                <ul class="checklist" data-category="study_ml_math">
+                                    <li class="check-item">
+                                        <label class="custom-checkbox">
+                                            <input type="checkbox" id="task_ml_4">
+                                            <span class="checkmark"></span>
+                                            <span class="task-title-text">Scikit-learn: Regression & Classification (10 hrs)</span>
+                                        </label>
+                                    </li>
+                                    <li class="check-item">
+                                        <label class="custom-checkbox">
+                                            <input type="checkbox" id="task_ml_5">
+                                            <span class="checkmark"></span>
+                                            <span class="task-title-text">Build 2-3 end-to-end models (12 hrs)</span>
+                                        </label>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <!-- AI / Deep Learning -->
+                        <div class="card category-card">
+                            <h3 class="category-title study-color"><i data-lucide="cpu"></i> Deep Learning & AI (3 hours/day)</h3>
+                            <div class="checklist-group">
+                                <h4 class="week-title">Week 1-2: Neural Networks Foundations</h4>
+                                <ul class="checklist" data-category="study_dl_ai">
+                                    <li class="check-item">
+                                        <label class="custom-checkbox">
+                                            <input type="checkbox" id="task_ai_1">
+                                            <span class="checkmark"></span>
+                                            <span class="task-title-text">3Blue1Brown Neural Networks playlist (6 hrs)</span>
+                                        </label>
+                                    </li>
+                                    <li class="check-item">
+                                        <label class="custom-checkbox">
+                                            <input type="checkbox" id="task_ai_2">
+                                            <span class="checkmark"></span>
+                                            <span class="task-title-text">TensorFlow/PyTorch basics and API orientation (6 hrs)</span>
+                                        </label>
+                                    </li>
+                                </ul>
+
+                                <h4 class="week-title">Week 3-4: Deep Learning Models</h4>
+                                <ul class="checklist" data-category="study_dl_ai">
+                                    <li class="check-item">
+                                        <label class="custom-checkbox">
+                                            <input type="checkbox" id="task_ai_3">
+                                            <span class="checkmark"></span>
+                                            <span class="task-title-text">Build CNN for Image Classification (8 hrs)</span>
+                                        </label>
+                                    </li>
+                                    <li class="check-item">
+                                        <label class="custom-checkbox">
+                                            <input type="checkbox" id="task_ai_4">
+                                            <span class="checkmark"></span>
+                                            <span class="task-title-text">NLP basics & Sentiment text classifier (6 hrs)</span>
+                                        </label>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <!-- Compiler Design -->
+                        <div class="card category-card">
+                            <h3 class="category-title study-color"><i data-lucide="binary"></i> Compiler Design (2 hours/day)</h3>
+                            <div class="checklist-group">
+                                <h4 class="week-title">Theory & Practical Builds</h4>
+                                <ul class="checklist" data-category="study_compiler">
+                                    <li class="check-item">
+                                        <label class="custom-checkbox">
+                                            <input type="checkbox" id="task_comp_1">
+                                            <span class="checkmark"></span>
+                                            <span class="task-title-text">Week 1-2: Lexical Analysis, Tokenization & Parsing (4 hrs)</span>
+                                        </label>
+                                    </li>
+                                    <li class="check-item">
+                                        <label class="custom-checkbox">
+                                            <input type="checkbox" id="task_comp_2">
+                                            <span class="checkmark"></span>
+                                            <span class="task-title-text">Week 3-4: Semantic Analysis & Code Optimization (4 hrs)</span>
+                                        </label>
+                                    </li>
+                                    <li class="check-item">
+                                        <label class="custom-checkbox">
+                                            <input type="checkbox" id="task_comp_3">
+                                            <span class="checkmark"></span>
+                                            <span class="task-title-text">Build a simple compiler/lexer in Python/C++ (6 hrs)</span>
+                                        </label>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <!-- DSA -->
+                        <div class="card category-card">
+                            <h3 class="category-title study-color"><i data-lucide="terminal"></i> DSA: LeetCode & StriverSheet (3 hours/day)</h3>
+                            <div class="checklist-group">
+                                <h4 class="week-title">Weekly Targets (Solve 70+ high-quality problems)</h4>
+                                <ul class="checklist" data-category="study_dsa">
+                                    <li class="check-item">
+                                        <label class="custom-checkbox">
+                                            <input type="checkbox" id="task_dsa_1">
+                                            <span class="checkmark"></span>
+                                            <span class="task-title-text">Week 1: Arrays & Strings fundamentals (15 problems)</span>
+                                        </label>
+                                    </li>
+                                    <li class="check-item">
+                                        <label class="custom-checkbox">
+                                            <input type="checkbox" id="task_dsa_2">
+                                            <span class="checkmark"></span>
+                                            <span class="task-title-text">Week 2: Linked Lists, Stacks, & Queues (15 problems)</span>
+                                        </label>
+                                    </li>
+                                    <li class="check-item">
+                                        <label class="custom-checkbox">
+                                            <input type="checkbox" id="task_dsa_3">
+                                            <span class="checkmark"></span>
+                                            <span class="task-title-text">Week 3: Trees, Binary Search Trees & Graphs (20 problems)</span>
+                                        </label>
+                                    </li>
+                                    <li class="check-item">
+                                        <label class="custom-checkbox">
+                                            <input type="checkbox" id="task_dsa_4">
+                                            <span class="checkmark"></span>
+                                            <span class="task-title-text">Week 4: Dynamic Programming & Greedy Algorithms (20 problems)</span>
+                                        </label>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Pomodoro Timer widget -->
+                    <div class="studies-right">
+                        <div class="card pomodoro-card sticky-widget">
+                            <h2>⏱️ Pomodoro Focus Timer</h2>
+                            <p class="timer-desc">Maintain focus for 50 minutes, then rest for 10 minutes. Deep focus leads to neural plasticity.</p>
+                            
+                            <div class="timer-display-container">
+                                <svg class="timer-ring" width="200" height="200">
+                                    <circle class="timer-ring-bg" stroke="var(--border)" stroke-width="10" fill="transparent" r="85" cx="100" cy="100"/>
+                                    <circle class="timer-ring-bar" id="timerRingBar" stroke="var(--primary)" stroke-width="10" fill="transparent" r="85" cx="100" cy="100" stroke-dasharray="534" stroke-dashoffset="0"/>
+                                </svg>
+                                <div class="timer-time" id="timerDisplay">50:00</div>
+                                <div class="timer-status" id="timerStatus">Deep Work Block</div>
+                            </div>
+
+                            <div class="timer-controls">
+                                <button class="btn btn-secondary" id="timerToggleBtn"><i data-lucide="play"></i> Start</button>
+                                <button class="btn btn-outline" id="timerResetBtn"><i data-lucide="rotate-ccw"></i> Reset</button>
+                            </div>
+                            
+                            <div class="timer-settings-row">
+                                <button class="btn btn-small active" id="modeWork">50m Focus</button>
+                                <button class="btn btn-small" id="modeBreak">10m Break</button>
+                                <button class="btn btn-small" id="timerSoundToggle" title="Toggle Sound"><i data-lucide="volume-2"></i></button>
+                            </div>
+                            
+                            <div class="timer-stats">
+                                <span>Completed Blocks Today:</span>
+                                <strong id="completedPomodoros">0</strong>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- FITNESS & NUTRITION TAB -->
+            <section id="fitness" class="panel">
+                <div class="alert alert-warning">
+                    <div class="alert-icon"><i data-lucide="alert-circle"></i></div>
+                    <div class="alert-content">
+                        <strong>⚠️ Weight Loss Rule:</strong> Total deficit (500-750 kcal) comes from both nutrition and exercise. Keep protein high (~1.2-1.6g/kg) to preserve muscle tissue while burning fat.
+                    </div>
+                </div>
+
+                <div class="fitness-grid">
+                    <div class="fitness-left">
+                        <h2>🏃 Detailed Exercise Guide</h2>
+
+                        <!-- Cardio Exercises -->
+                        <div class="card exercise-card">
+                            <h3><i data-lucide="wind"></i> Cardio Exercises (45 min daily)</h3>
+                            <p class="section-desc">Boosts cellular respiration, burns fat, and improves blood microcirculation to the scalp hair follicles.</p>
+                            
+                            <div class="exercise-item">
+                                <div class="exercise-header">
+                                    <strong>🚴 Jogging/Running (30 min)</strong>
+                                    <span class="kcal-badge">~300 kcal</span>
+                                </div>
+                                <p>Begin with a 5-minute warm-up walk. Maintain a conversational pace (aerobic zone). Encourages follicle oxygenation.</p>
+                            </div>
+
+                            <div class="exercise-item">
+                                <div class="exercise-header">
+                                    <strong>🪢 Jump Rope Intervals (15 min)</strong>
+                                    <span class="kcal-badge">~150 kcal</span>
+                                </div>
+                                <p>Intervals: 30 seconds high speed + 15 seconds rest. Repeat 10-15 cycles. Increases vascular elasticity.</p>
+                            </div>
+
+                            <div class="exercise-item">
+                                <div class="exercise-header">
+                                    <strong>⚡ High-Intensity Interval Training (HIIT) - 15 min alternative</strong>
+                                    <span class="kcal-badge">~150 kcal</span>
+                                </div>
+                                <p>Perform burpees, mountain climbers, and high knees in 30s-on / 15s-off intervals. Excellent metabolic booster.</p>
+                            </div>
+                        </div>
+
+                        <!-- Strength Training -->
+                        <div class="card exercise-card">
+                            <h3><i data-lucide="dumbbell"></i> Strength Training (1h 30m, 3x/week)</h3>
+                            <p class="section-desc">Mon / Wed / Fri. Preserves lean body mass, boosts basal metabolic rate (BMR), and tones muscle.</p>
+                            
+                            <div class="strength-sections">
+                                <div class="strength-col">
+                                    <h4>Upper Body (30 min)</h4>
+                                    <ul>
+                                        <li>Push-ups: 3 sets × 10-15 reps</li>
+                                        <li>Dumbbell/Back Rows: 3 sets × 10 reps</li>
+                                        <li>Dumbbell Shoulder Press: 3 sets × 8-10 reps</li>
+                                        <li>Forearm Plank: 3 sets × 45-60 sec</li>
+                                    </ul>
+                                </div>
+                                <div class="strength-col">
+                                    <h4>Lower Body (30 min)</h4>
+                                    <ul>
+                                        <li>Goblet Squats: 3 sets × 15-20 reps</li>
+                                        <li>Alternating Lunges: 3 sets × 12 reps</li>
+                                        <li>Romanian Deadlifts: 3 sets × 10 reps</li>
+                                        <li>Glute Bridges: 3 sets × 15 reps</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="exercise-item-mini">
+                                <strong>🧠 Core & Stability:</strong> Planks, Russian twists, and superman holds. Maintains pelvic alignment and core stability.
+                            </div>
+                        </div>
+
+                        <!-- Yoga for Hair Health -->
+                        <div class="card exercise-card">
+                            <h3><i data-lucide="flower"></i> Yoga for Hair Health (45 min daily)</h3>
+                            <p class="section-desc">Brings nutrient-rich blood supply directly to the scalp, reduces cortisol levels, and stabilizes hormones.</p>
+                            
+                            <div class="exercise-item">
+                                <strong>⬇️ Scalp Inversions (Hold 30+ seconds):</strong>
+                                <ul>
+                                    <li>Downward Facing Dog: 5-10 breaths. Stretches spinal column and draws blood to face/head.</li>
+                                    <li>Standing Forward Fold (Uttanasana): 5-10 breaths. Maximizes circulation.</li>
+                                    <li>Supported Shoulder Stand (Sarvangasana): 30-60s. The queen of poses for thyroid and hormonal balance.</li>
+                                </ul>
+                            </div>
+                            <div class="exercise-item">
+                                <strong>🌀 Spinal Twists & Heart Openers:</strong>
+                                <ul>
+                                    <li>Seated Spinal Twist (Ardha Matsyendrasana): Stimulates liver/digestion and aids detoxification.</li>
+                                    <li>Camel Pose (Ustrasana): Opens thoracic region, regulates neck glands, and reduces stress.</li>
+                                    <li>Legs-Up-The-Wall (Viparita Karani): 5-10 minutes. Superb restorative pose for hormonal stabilization.</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <!-- Period Regularity Exercises & Exercises to Avoid -->
+                        <div class="card exercise-card">
+                            <h3>🌸 Hormone & Cycle Support Exercises</h3>
+                            <p class="section-desc">Pelvic floor relaxation and gentle movements help release blockages and promote menstrual regularity.</p>
+                            
+                            <div class="exercise-item">
+                                <strong>✅ Beneficial Poses:</strong> Butterfly Pose (Baddha Konasana) to open pelvic hips, Pigeon Pose, and Happy Baby.
+                            </div>
+                            <div class="exercise-item warning-item">
+                                <strong>⚠️ Exercises to Avoid:</strong> Extreme cardio or heavy resistance training exceeding 2 hours daily. Excessive training triggers hypothalamic amenorrhea (period disruption) due to energy deficiency.
+                            </div>
+                        </div>
+
+                        <!-- Weekly Exercise Schedule Table -->
+                        <div class="card schedule-table-card">
+                            <h3>📋 Weekly Schedule Summary</h3>
+                            <div class="table-responsive">
+                                <table class="schedule-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Day</th>
+                                            <th>Cardio</th>
+                                            <th>Strength</th>
+                                            <th>Yoga</th>
+                                            <th>Scalp Flow</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>Monday</td>
+                                            <td>45m Jog/Jump</td>
+                                            <td>1.5h Full Body</td>
+                                            <td>45m Flow</td>
+                                            <td>10m Massage</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Tuesday</td>
+                                            <td>45m Jog/Walk</td>
+                                            <td>—</td>
+                                            <td>45m Flow</td>
+                                            <td>10m Massage</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Wednesday</td>
+                                            <td>45m Jog/Jump</td>
+                                            <td>1.5h Full Body</td>
+                                            <td>45m Flow</td>
+                                            <td>10m Massage</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Thursday</td>
+                                            <td>45m Jog/Walk</td>
+                                            <td>—</td>
+                                            <td>45m Flow</td>
+                                            <td>10m Massage</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Friday</td>
+                                            <td>45m Jog/Jump</td>
+                                            <td>1.5h Full Body</td>
+                                            <td>45m Flow</td>
+                                            <td>10m Massage</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Saturday</td>
+                                            <td>45m Light Walk</td>
+                                            <td>—</td>
+                                            <td>45m Flow</td>
+                                            <td>10m Massage</td>
+                                        </tr>
+                                        <tr class="table-rest-row">
+                                            <td>Sunday</td>
+                                            <td>REST DAY 💤</td>
+                                            <td>REST DAY 💤</td>
+                                            <td>—</td>
+                                            <td>10m Massage</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Right sidebar with nutrition tracker, hydration tracker, and weight log -->
+                    <div class="fitness-right">
+                        <!-- Hydration Tracker -->
+                        <div class="card hydration-card">
+                            <h3>💧 Hydration Log</h3>
+                            <p class="tracker-desc">Target: 3.5 Liters daily. Fluid dynamics support metabolic efficiency, toxin flushing, and scalp elasticity.</p>
+                            
+                            <div class="water-visual-container">
+                                <div class="water-glass">
+                                    <div class="water-level" id="waterLevel" style="height: 0%;"></div>
+                                    <div class="water-percent" id="waterPercent">0%</div>
+                                </div>
+                            </div>
+
+                            <div class="water-status">
+                                <span id="waterLogged">0</span> ml / <span id="waterTargetText">3500</span> ml
+                            </div>
+
+                            <div class="water-buttons">
+                                <button class="btn btn-outline btn-small" onclick="addWater(250)">+250ml</button>
+                                <button class="btn btn-outline btn-small" onclick="addWater(500)">+500ml</button>
+                                <button class="btn btn-outline btn-small" onclick="addWater(1000)">+1.0L</button>
+                                <button class="btn btn-danger btn-small" onclick="resetWater()" title="Reset Water"><i data-lucide="trash-2"></i></button>
+                            </div>
+                        </div>
+
+                        <!-- Nutrition Plan checkmarks -->
+                        <div class="card nutrition-card">
+                            <h3>🥗 Daily Nutrition Log</h3>
+                            <p class="tracker-desc">Goal: 1500 - 1800 kcal/day. Monitor macro ratios: 40% Protein, 30% Complex Carbs, 30% Healthy Fats.</p>
+                            
+                            <ul class="checklist" id="nutritionChecklist">
+                                <li class="check-item">
+                                    <label class="custom-checkbox">
+                                        <input type="checkbox" id="nutr_breakfast">
+                                        <span class="checkmark"></span>
+                                        <div>
+                                            <span class="meal-title">Breakfast (400 kcal)</span>
+                                            <span class="meal-detail">2 eggs, 2 slices whole wheat toast, 1/2 banana + black coffee</span>
+                                        </div>
+                                    </label>
+                                </li>
+                                <li class="check-item">
+                                    <label class="custom-checkbox">
+                                        <input type="checkbox" id="nutr_snack1">
+                                        <span class="checkmark"></span>
+                                        <div>
+                                            <span class="meal-title">Mid-Morning Snack (150 kcal)</span>
+                                            <span class="meal-detail">Greek yogurt with almonds OR sliced apple + peanut butter</span>
+                                        </div>
+                                    </label>
+                                </li>
+                                <li class="check-item">
+                                    <label class="custom-checkbox">
+                                        <input type="checkbox" id="nutr_lunch">
+                                        <span class="checkmark"></span>
+                                        <div>
+                                            <span class="meal-title">Lunch (450 kcal)</span>
+                                            <span class="meal-detail">Grilled breast chicken/fish (150g), 1 cup brown rice + steamed broccoli</span>
+                                        </div>
+                                    </label>
+                                </li>
+                                <li class="check-item">
+                                    <label class="custom-checkbox">
+                                        <input type="checkbox" id="nutr_snack2">
+                                        <span class="checkmark"></span>
+                                        <div>
+                                            <span class="meal-title">Afternoon Snack (150 kcal)</span>
+                                            <span class="meal-detail">Handful of raw walnuts & pumpkin seeds OR protein shake</span>
+                                        </div>
+                                    </label>
+                                </li>
+                                <li class="check-item">
+                                    <label class="custom-checkbox">
+                                        <input type="checkbox" id="nutr_dinner">
+                                        <span class="checkmark"></span>
+                                        <div>
+                                            <span class="meal-title">Dinner (400 kcal)</span>
+                                            <span class="meal-detail">Tofu/lean paneer scramble, mixed vegetable stir-fry, quinoa salad</span>
+                                        </div>
+                                    </label>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <!-- Weight Tracking widget -->
+                        <div class="card weight-card">
+                            <h3>⚖️ Weekly Weight Journal</h3>
+                            <p class="tracker-desc">Log your weight every Sunday morning. Consistent logging reveals metabolic trajectory.</p>
+                            
+                            <div class="weight-input-row">
+                                <div class="form-group">
+                                    <label for="newWeightInput">Weight (kg):</label>
+                                    <input type="number" id="newWeightInput" step="0.1" placeholder="72.0">
+                                </div>
+                                <div class="form-group">
+                                    <label for="weightWeekSelect">Week:</label>
+                                    <select id="weightWeekSelect">
+                                        <option value="0">Start</option>
+                                        <option value="1">Week 1</option>
+                                        <option value="2">Week 2</option>
+                                        <option value="3">Week 3</option>
+                                        <option value="4">Week 4</option>
+                                    </select>
+                                </div>
+                                <button class="btn btn-primary" id="logWeightBtn">Log</button>
+                            </div>
+
+                            <div class="weight-chart-container">
+                                <!-- SVG custom chart is injected here dynamically -->
+                                <div id="weightChartContainer">
+                                    <svg id="weightChart" viewBox="0 0 400 180" width="100%" height="150">
+                                        <!-- Placeholder text or grids, overridden by JS -->
+                                    </svg>
+                                </div>
+                            </div>
+                            
+                            <div class="weight-history-list" id="weightHistoryList">
+                                <!-- Historical log items dynamically injected here -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- HEALTH & WELLNESS TAB -->
+            <section id="health" class="panel">
+                <div class="alert alert-info">
+                    <div class="alert-icon"><i data-lucide="heart"></i></div>
+                    <div class="alert-content">
+                        <strong>Period Health & Cortisol:</strong> Hypothalamic signals governing reproduction are highly sensitive to stress. Sleep hygiene and breathwork are as vital as physical nutrition.
+                    </div>
+                </div>
+
+                <div class="health-grid">
+                    <div class="health-left">
+                        <h2>❤️ Health & Hormonal Fundamentals</h2>
+
+                        <!-- Nutrition for Hormonal Health -->
+                        <div class="card health-card">
+                            <h3>🍽️ Micronutrients for Menstrual Regularity</h3>
+                            <p class="section-desc">Specific nutrient deficiencies cause cycle failure and aggravate follicular shedding.</p>
+                            <div class="micronutrient-grid">
+                                <div class="micro-item">
+                                    <strong>🩸 Iron & Vitamin C</strong>
+                                    <p>Spinach, chicken breast, lentils, pumpkin seeds. Pair with bell peppers or lemon juice to increase absorption.</p>
+                                </div>
+                                <div class="micro-item">
+                                    <strong>🥦 Magnesium & Calcium</strong>
+                                    <p>Dark chocolate, almonds, organic milk, dark leafy greens. Prevents menstrual cramping and calms the nervous system.</p>
+                                </div>
+                                <div class="micro-item">
+                                    <strong>🥑 Omega-3 Healthy Fats</strong>
+                                    <p>Avocados, extra virgin olive oil, walnuts, fish oil. The building block of healthy steroid hormones.</p>
+                                </div>
+                                <div class="micro-item">
+                                    <strong>🌾 Whole Grains & Fibers</strong>
+                                    <p>Oats, brown rice, quinoa. Maintains insulin sensitivity, preventing excess androgen synthesis.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Sleep, Stress, & Supplements Checklist -->
+                        <div class="card health-card">
+                            <h3>💤 Sleep Hygiene Habits</h3>
+                            <ul class="checklist" data-category="health_sleep">
+                                <li class="check-item">
+                                    <label class="custom-checkbox">
+                                        <input type="checkbox" id="sleep_1">
+                                        <span class="checkmark"></span>
+                                        <span class="task-title-text">Consistent bedtime (10:00 PM sleep, 6:00 AM wake)</span>
+                                    </label>
+                                </li>
+                                <li class="check-item">
+                                    <label class="custom-checkbox">
+                                        <input type="checkbox" id="sleep_2">
+                                        <span class="checkmark"></span>
+                                        <span class="task-title-text">Dark room, cooled environment (~18°C / 65°F)</span>
+                                    </label>
+                                </li>
+                                <li class="check-item">
+                                    <label class="custom-checkbox">
+                                        <input type="checkbox" id="sleep_3">
+                                        <span class="checkmark"></span>
+                                        <span class="task-title-text">No screens / blue-light exposure 30 minutes before sleep</span>
+                                    </label>
+                                </li>
+                                <li class="check-item">
+                                    <label class="custom-checkbox">
+                                        <input type="checkbox" id="sleep_4">
+                                        <span class="checkmark"></span>
+                                        <span class="task-title-text">Light dinner completed at least 3 hours prior to sleep</span>
+                                    </label>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <!-- Stress Management -->
+                        <div class="card health-card">
+                            <h3>🧘 Stress Management & Cortisol Control</h3>
+                            <ul class="checklist" data-category="health_stress">
+                                <li class="check-item">
+                                    <label class="custom-checkbox">
+                                        <input type="checkbox" id="stress_1">
+                                        <span class="checkmark"></span>
+                                        <span class="task-title-text">Daily meditation / mindfulness block: 10-15 minutes</span>
+                                    </label>
+                                </li>
+                                <li class="check-item">
+                                    <label class="custom-checkbox">
+                                        <input type="checkbox" id="stress_2">
+                                        <span class="checkmark"></span>
+                                        <span class="task-title-text">Deep diaphragmatic breathing (4-7-8 breathing) twice daily</span>
+                                    </label>
+                                </li>
+                                <li class="check-item">
+                                    <label class="custom-checkbox">
+                                        <input type="checkbox" id="stress_3">
+                                        <span class="checkmark"></span>
+                                        <span class="task-title-text">Screen-free walk outdoors during study breaks</span>
+                                    </label>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <!-- Energy Hacks -->
+                        <div class="card health-card">
+                            <h3>⚡ Energy & Productivity Hacks</h3>
+                            <div class="hacks-list">
+                                <div class="hack-item">
+                                    <strong>🧠 Cognitive Alertness:</strong> Consume a protein-rich meal (e.g. eggs) in the morning. Healthy fats release dopamine for stable focus.
+                                </div>
+                                <div class="hack-item">
+                                    <strong>🍌 Pre-Workout Fuel:</strong> Have a banana and a tablespoon of peanut butter 30 minutes before exercise.
+                                </div>
+                                <div class="hack-item">
+                                    <strong>🥤 Post-Workout Recovery:</strong> Consume a clean protein shake/source within 30-45 minutes after strength training.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Menstrual Cycle Tracker Column -->
+                    <div class="health-right">
+                        <div class="card tracker-card sticky-widget">
+                            <h3>🗓️ Simple Cycle Tracker</h3>
+                            <p class="tracker-desc">Keeping tabs on cycle dates helps correlate changes in energy, mood, and sleep with hormonal phases.</p>
+                            
+                            <div class="cycle-input-group">
+                                <div class="form-group">
+                                    <label for="lastPeriodDate">Start Date of Last Period:</label>
+                                    <input type="date" id="lastPeriodDate">
+                                </div>
+                                <div class="form-group">
+                                    <label for="cycleLengthInput">Typical Cycle Length (days):</label>
+                                    <input type="number" id="cycleLengthInput" min="20" max="45" value="28">
+                                </div>
+                                <button class="btn btn-secondary btn-block" id="saveCycleBtn">Save & Calculate</button>
+                            </div>
+
+                            <div class="cycle-results" id="cycleResults" style="display: none;">
+                                <div class="result-tile">
+                                    <div class="result-label">Estimated Next Period:</div>
+                                    <div class="result-val" id="nextPeriodText">--</div>
+                                </div>
+                                <div class="result-tile">
+                                    <div class="result-label">Current Phase Estimate:</div>
+                                    <div class="result-val phase-badge" id="currentPhaseText">--</div>
+                                </div>
+                                <div class="cycle-phase-explanation" id="phaseExplanationText">
+                                    Save your last period start date to view phase descriptions.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- HAIR CARE TAB -->
+            <section id="hair" class="panel">
+                <div class="alert alert-info">
+                    <div class="alert-icon"><i data-lucide="sparkles"></i></div>
+                    <div class="alert-content">
+                        <strong>Hair Growth Science:</strong> Hair follicles have some of the highest metabolic activity in the body. They require abundant blood circulation (via massages and exercise) and nutrient delivery (Iron, Zinc, Vitamin D).
+                    </div>
+                </div>
+
+                <div class="hair-grid">
+                    <div class="hair-left">
+                        <h2>✨ Scalp & Hair Core Routine</h2>
+
+                        <!-- Daily Routine -->
+                        <div class="card hair-card">
+                            <h3>💆 Daily Scalp Stimulation</h3>
+                            <p class="section-desc">Physical traction activates cellular pathways to increase follicle thickness and diameter.</p>
+                            
+                            <div class="routine-item">
+                                <strong>💆 Finger Scalp Massage (3 min)</strong>
+                                <p>Using clean, dry fingertips (not nails), apply moderate pressure and massage in circular patterns from the hairline, moving up to the crown, and down to the nape of the neck. Relieves micro-tension.</p>
+                            </div>
+
+                            <div class="routine-item">
+                                <strong>🌿 Oil massage (10 min)</strong>
+                                <p>Gently warm 1-2 drops of oil (Rosemary mixed with Jojoba/Coconut oil). Massage into the roots focusing on target areas. Perform daily or alternate days depending on hair type.</p>
+                            </div>
+
+                            <div class="routine-item">
+                                <strong>🤸 Inverted Hanging Position (3 min)</strong>
+                                <p>Sit on a chair or the edge of a bed, lower your torso, and let your head hang down between your knees. This gravity assist redirects cardiac output to the cerebral vascular network.</p>
+                            </div>
+                        </div>
+
+                        <!-- Weekly Routine -->
+                        <div class="card hair-card">
+                            <h3>🧼 Weekly Cleansing & Conditioning</h3>
+                            <div class="routine-item">
+                                <strong>🚿 Wash Day (2-3x per week)</strong>
+                                <p>Use a sulfate-free, botanical shampoo. Focus shampoo application only on the scalp. Double wash if you have heavy oil accumulation. Rinse with lukewarm or cool water.</p>
+                            </div>
+                            <div class="routine-item">
+                                <strong>🧴 Deep Conditioning Treatment (1x per week)</strong>
+                                <p>Apply a repairing hair mask from mid-shaft to ends. Wrap hair in a warm micro-fiber towel and leave on for 15-20 minutes before rinsing. Locks in core moisture.</p>
+                            </div>
+                        </div>
+
+                        <!-- Hair Masks & Recipes -->
+                        <div class="card hair-card">
+                            <h3>🥣 Natural Hair Nourishment Recipes</h3>
+                            <div class="recipe-grid">
+                                <div class="recipe-item">
+                                    <strong>🧪 Rosemary Scalp Oil</strong>
+                                    <p>Mix 5 drops of Rosemary Essential Oil with 2 tablespoons of Jojoba or Sweet Almond Oil. Rosemary has clinical efficacy comparable to 2% minoxidil in stimulating hair follicles.</p>
+                                </div>
+                                <div class="recipe-item">
+                                    <strong>🍃 Soothing Aloe Vera Mask</strong>
+                                    <p>Apply fresh organic aloe vera gel directly to the scalp 30 minutes before shampooing. Calms scalp inflammation, regulates sebum production, and clears dandruff.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Right sidebar with healthy hair habits checklist -->
+                    <div class="hair-right">
+                        <div class="card habit-card sticky-widget">
+                            <h3>✅ Good Hair Habits Checklist</h3>
+                            <p class="tracker-desc">Building structural habits prevents physical breakages and damage to the cuticle sheath.</p>
+                            
+                            <ul class="checklist" data-category="hair_habits">
+                                <li class="check-item">
+                                    <label class="custom-checkbox">
+                                        <input type="checkbox" id="hair_hab_1">
+                                        <span class="checkmark"></span>
+                                        <span class="task-title-text">Use a wide-tooth wooden comb instead of plastic brushes</span>
+                                    </label>
+                                </li>
+                                <li class="check-item">
+                                    <label class="custom-checkbox">
+                                        <input type="checkbox" id="hair_hab_2">
+                                        <span class="checkmark"></span>
+                                        <span class="task-title-text">Sleep on a silk or satin pillowcase to reduce friction</span>
+                                    </label>
+                                </li>
+                                <li class="check-item">
+                                    <label class="custom-checkbox">
+                                        <input type="checkbox" id="hair_hab_3">
+                                        <span class="checkmark"></span>
+                                        <span class="task-title-text">Avoid high heat styling (blow dryers, flat irons)</span>
+                                    </label>
+                                </li>
+                                <li class="check-item">
+                                    <label class="custom-checkbox">
+                                        <input type="checkbox" id="hair_hab_4">
+                                        <span class="checkmark"></span>
+                                        <span class="task-title-text">Sip at least 3.5L of water (dehydrated hair is brittle)</span>
+                                    </label>
+                                </li>
+                                <li class="check-item">
+                                    <label class="custom-checkbox">
+                                        <input type="checkbox" id="hair_hab_5">
+                                        <span class="checkmark"></span>
+                                        <span class="task-title-text">Do not tie hair tightly (prevents traction alopecia)</span>
+                                    </label>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- DAILY PLAN TAB -->
+            <section id="daily" class="panel">
+                <div class="alert alert-info">
+                    <div class="alert-icon"><i data-lucide="calendar"></i></div>
+                    <div class="alert-content">
+                        <strong>Daily Habit Tracker:</strong> Select a day in the 30-day calendar below to log your wellness and study compliance. Keeping a daily record gamifies consistency.
+                    </div>
+                </div>
+
+                <div class="daily-calendar-wrapper">
+                    <h2>📅 30-Day Journey Progress</h2>
+                    <div class="calendar-grid" id="calendarGrid">
+                        <!-- JS injects 30 buttons here -->
+                    </div>
+                </div>
+
+                <div class="daily-editor-section card" id="dailyEditor">
+                    <div class="editor-header">
+                        <h3 id="activeDayTitle">Day 1 Details</h3>
+                        <div class="editor-progress">
+                            <span>Adherence Status:</span>
+                            <span class="day-badge" id="dayAdherenceBadge">0% Complete</span>
+                        </div>
+                    </div>
+
+                    <div class="editor-split">
+                        <div class="editor-left">
+                            <h4>⏰ Daily Time Blocks</h4>
+                            <div class="timeline">
+                                <div class="timeline-item">
+                                    <div class="time">06:00 - 07:00</div>
+                                    <div class="activity">🌅 Wake up, hydration + 45 min Yoga Flow (Inversions/Twists)</div>
+                                </div>
+                                <div class="timeline-item">
+                                    <div class="time">07:00 - 08:00</div>
+                                    <div class="activity">🍳 High-Protein Breakfast (Eggs/Oats) + Morning prep</div>
+                                </div>
+                                <div class="timeline-item highlight-study">
+                                    <div class="time">08:00 - 12:00</div>
+                                    <div class="activity">💻 <strong>Study Block 1: ML & Math</strong> (Linear Algebra/Algorithms - 4 hrs)</div>
+                                </div>
+                                <div class="timeline-item">
+                                    <div class="time">12:00 - 13:00</div>
+                                    <div class="activity">💆 Scalp Circular Massage (3m) + Inverted Head Hang (3m)</div>
+                                </div>
+                                <div class="timeline-item">
+                                    <div class="time">13:00 - 14:00</div>
+                                    <div class="activity">🥗 Lunch (Lean Protein + Complex Carbs + Steamed Veggies)</div>
+                                </div>
+                                <div class="timeline-item highlight-study">
+                                    <div class="time">14:00 - 17:00</div>
+                                    <div class="activity">💻 <strong>Study Block 2: DSA Practice</strong> (LeetCode/StriverSheet - 3 hrs)</div>
+                                </div>
+                                <div class="timeline-item highlight-fit">
+                                    <div class="time">17:00 - 19:30</div>
+                                    <div class="activity">🏃 <strong>Exercise Block:</strong> 45m Cardio (Jogging/HIIT) + 1.5h Strength Training (Mon/Wed/Fri)</div>
+                                </div>
+                                <div class="timeline-item">
+                                    <div class="time">19:30 - 20:30</div>
+                                    <div class="activity">🥗 Protein Shake/Recovery Meal + Healthy Dinner</div>
+                                </div>
+                                <div class="timeline-item highlight-study">
+                                    <div class="time">20:30 - 22:30</div>
+                                    <div class="activity">💻 <strong>Study Block 3: Compiler Design / AI</strong> (Theory/Simple Compiler Build - 2 hrs)</div>
+                                </div>
+                                <div class="timeline-item">
+                                    <div class="time">22:30 - 23:00</div>
+                                    <div class="activity">💤 No Screens, 4-7-8 Breathing, Herbal Tea + Sleep at 23:00</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="editor-right">
+                            <h4>✅ Habits to Log for <span id="activeDayLabel">Day 1</span></h4>
+                            <p class="tracker-desc">Check these habits off at the end of the day. A day is marked "Adhered" when 80%+ of habits are checked.</p>
+                            
+                            <ul class="checklist" id="dailyHabitsList">
+                                <!-- Dynamic check-items injected here by JS based on the selected day -->
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SETTINGS TAB -->
+            <section id="settings" class="panel">
+                <h2>⚙️ Application Settings & Adjustments</h2>
+                <p class="section-desc">Customize targets, tracking variables, and hormonal settings. Data is securely saved to your local browser storage.</p>
+
+                <div class="settings-grid">
+                    <div class="settings-col">
+                        <div class="card settings-card">
+                            <h3>🎯 Personalized Targets</h3>
+                            
+                            <div class="form-group">
+                                <label for="setStudyTarget">Daily Study Target (Hours):</label>
+                                <input type="number" id="setStudyTarget" min="4" max="18" value="12">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="setWaterTarget">Daily Hydration Target (ml):</label>
+                                <input type="number" id="setWaterTarget" min="1500" max="6000" step="250" value="3500">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="setStartWeight">Starting Weight (kg):</label>
+                                <input type="number" id="setStartWeight" min="40" max="150" step="0.1" value="72">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="setTargetWeight">Goal Target Weight (kg):</label>
+                                <input type="number" id="setTargetWeight" min="40" max="150" step="0.1" value="69">
+                            </div>
+
+                            <button class="btn btn-primary" id="saveSettingsBtn">Save Configuration</button>
+                        </div>
+                    </div>
+
+                    <div class="settings-col">
+                        <div class="card settings-card">
+                            <h3>⚠️ Reset & Backup</h3>
+                            <p class="tracker-desc">Need to restart your 30-day journey or clear mock data? Perform a local factory reset below.</p>
+                            
+                            <div class="reset-actions">
+                                <button class="btn btn-danger btn-block" id="resetDataBtn"><i data-lucide="trash-2"></i> Reset All Application Data</button>
+                                <button class="btn btn-outline btn-block" id="loadMockDataBtn"><i data-lucide="database"></i> Load Sample Progress Data</button>
+                            </div>
+                        </div>
+
+                        <div class="card settings-card">
+                            <h3>ℹ️ About This Planner</h3>
+                            <p class="about-text">
+                                This dashboard was custom built to help you track your intensive wellness and study routines. 
+                                By combining concepts in computer science (AI, Compilers, and DSA) with systemic physiology (hair growth cycles, caloric deficits, and hormone stabilization), this planner facilitates structured, long-term personal optimization.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+        </main>
+        
+        <!-- FOOTER -->
+        <footer class="footer">
+            <p>Designed for High-Performance Personal Growth. Remember: <strong>Consistency is Key</strong>.</p>
+        </footer>
+    </div>
+
+    <!-- Application Logic Script -->
+    <script src="app.js"></script>
+</body>
+
+</html>
