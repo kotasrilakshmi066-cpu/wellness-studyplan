@@ -8,10 +8,10 @@ const TOTAL_DAYS = 30;
 
 // Daily habits list definition
 const DAILY_HABITS = [
-    { id: "study_ml", text: "💻 Study ML & Math (4 hours)", category: "study" },
-    { id: "study_ai", text: "🤖 Study Deep Learning & AI (3 hours)", category: "study" },
-    { id: "study_compiler", text: "🖥️ Study Compiler Design (2 hours)", category: "study" },
-    { id: "study_dsa", text: "💡 DSA Practice - LeetCode/StriverSheet (3 hours)", category: "study" },
+    { id: "study_ml", text: "💻 ML Revision & College Assignments (30-45 min)", category: "study" },
+    { id: "study_gate1", text: "📘 GATE Core Subjects - Session 1 (1.5 hours)", category: "study" },
+    { id: "study_gate2", text: "📗 GATE Core Subjects - Session 2 (1 hour)", category: "study" },
+    { id: "study_dsa", text: "💡 DSA Practice - LeetCode/StriverSheet/GATE PYQs (1-2 hours)", category: "study" },
     { id: "fit_cardio", text: "🏃 Cardio Workout (45 min)", category: "fitness" },
     { id: "fit_strength", text: "💪 Strength Work (1.5h - Mon/Wed/Fri focus)", category: "fitness" },
     { id: "fit_yoga", text: "🧘 Yoga Flow for Circulation & Stress (45 min)", category: "fitness" },
@@ -24,7 +24,7 @@ const DAILY_HABITS = [
 // Default clean state
 const defaultState = {
     completedGlobalTasks: {}, // Syllabus tasks: { "task_ml_1": true, ... }
-    daysAdherence: {},        // Daily plan checklist: { "1": ["study_ml", "fit_cardio"], ... }
+    daysAdherence: {}, // Daily plan checklist: { "1": ["study_ml", "fit_cardio"], ... }
     weightLogs: [
         { week: 0, weight: 72.0 }
     ],
@@ -37,7 +37,7 @@ const defaultState = {
         cycleLength: 28
     },
     settings: {
-        studyTarget: 12,
+        studyTarget: 5,
         waterTarget: 3500,
         startWeight: 72.0,
         targetWeight: 69.0
@@ -65,7 +65,7 @@ let isSoundEnabled = true;
 document.addEventListener("DOMContentLoaded", () => {
     // Load app state
     loadState();
-    
+
     // Initialize theme
     applyTheme();
 
@@ -76,14 +76,14 @@ document.addEventListener("DOMContentLoaded", () => {
     renderWeightChart();
     renderWeightHistory();
     renderCycleCalculations();
-    
+
     // Bind Event Listeners
     setupEventListeners();
-    
+
     // Start interval to monitor day transitions for hydration resetting
     checkHydrationDateReset();
     setInterval(checkHydrationDateReset, 60000); // Check every minute
-    
+
     // Initialize icons
     if (window.lucide) {
         window.lucide.createIcons();
@@ -97,9 +97,9 @@ function loadState() {
         try {
             state = JSON.parse(saved);
             // Ensure compatibility with defaultState keys
-            state = { ...defaultState, ...state };
-            state.settings = { ...defaultState.settings, ...state.settings };
-            state.cycleTracker = { ...defaultState.cycleTracker, ...state.cycleTracker };
+            state = {...defaultState, ...state };
+            state.settings = {...defaultState.settings, ...state.settings };
+            state.cycleTracker = {...defaultState.cycleTracker, ...state.cycleTracker };
         } catch (e) {
             console.error("Failed to parse saved state, loading default.", e);
             state = JSON.parse(JSON.stringify(defaultState));
@@ -107,7 +107,7 @@ function loadState() {
     } else {
         state = JSON.parse(JSON.stringify(defaultState));
     }
-    
+
     // Make sure date for hydration is set to today if empty
     const todayStr = getTodayDateString();
     if (!state.hydration.date) {
@@ -137,7 +137,7 @@ function checkHydrationDateReset() {
     if (state.hydration.date !== todayStr) {
         state.hydration.date = todayStr;
         state.hydration.amount = 0;
-        
+
         // Reset daily nutrition checklist logs too
         const nutritionChecks = ["nutr_breakfast", "nutr_snack1", "nutr_snack2", "nutr_lunch", "nutr_dinner"];
         nutritionChecks.forEach(id => {
@@ -145,7 +145,7 @@ function checkHydrationDateReset() {
             const el = document.getElementById(id);
             if (el) el.checked = false;
         });
-        
+
         saveState();
         updateWaterUI();
     }
@@ -195,7 +195,7 @@ function setupEventListeners() {
     document.getElementById("timerResetBtn").addEventListener("click", resetTimer);
     document.getElementById("modeWork").addEventListener("click", () => setTimerMode("work"));
     document.getElementById("modeBreak").addEventListener("click", () => setTimerMode("break"));
-    
+
     // Pomodoro Sound toggle
     const soundBtn = document.getElementById("timerSoundToggle");
     soundBtn.addEventListener("click", () => {
@@ -267,14 +267,14 @@ function renderTabs() {
             checkbox.checked = checked;
         }
     }
-    
+
     // Hydrate Settings Inputs
     document.getElementById("setStudyTarget").value = state.settings.studyTarget;
     document.getElementById("setWaterTarget").value = state.settings.waterTarget;
     document.getElementById("setStartWeight").value = state.settings.startWeight;
     document.getElementById("setTargetWeight").value = state.settings.targetWeight;
     document.getElementById("waterTargetText").innerText = state.settings.waterTarget;
-    
+
     // Hydrate Cycle Tracker Inputs
     document.getElementById("lastPeriodDate").value = state.cycleTracker.lastPeriodDate;
     document.getElementById("cycleLengthInput").value = state.cycleTracker.cycleLength;
@@ -292,11 +292,11 @@ function updateGlobalMetrics() {
     let adheredDaysCount = 0;
     let totalAdherencePoints = 0; // Cumulative habits checked
     let maxPossibleAdherencePoints = TOTAL_DAYS * DAILY_HABITS.length;
-    
+
     for (let day = 1; day <= TOTAL_DAYS; day++) {
         const dayChecks = state.daysAdherence[day] || [];
         totalAdherencePoints += dayChecks.length;
-        
+
         // Calculate day percentage
         const dayPct = dayChecks.length / DAILY_HABITS.length;
         if (dayPct >= 0.8) {
@@ -307,12 +307,13 @@ function updateGlobalMetrics() {
     // 2. Syllabus / Checklist items progress
     // Count checked checkboxes under syllabus
     const syllabusIds = [
-        // ML & Math
-        "task_ml_1", "task_ml_2", "task_ml_3", "task_ml_4", "task_ml_5",
-        // DL & AI
-        "task_ai_1", "task_ai_2", "task_ai_3", "task_ai_4",
-        // Compiler
-        "task_comp_1", "task_comp_2", "task_comp_3",
+        // College ML Revision
+        "task_ml_1", "task_ml_2",
+        // GATE Core Subjects
+        "task_gate_1", "task_gate_2", "task_gate_3", "task_gate_4",
+        "task_gate_5", "task_gate_6", "task_gate_7", "task_gate_8",
+        "task_gate_9", "task_gate_10", "task_gate_11", "task_gate_12",
+        "task_gate_13", "task_gate_14", "task_gate_15", "task_gate_16",
         // DSA
         "task_dsa_1", "task_dsa_2", "task_dsa_3", "task_dsa_4",
         // Sleep & Stress
@@ -321,14 +322,14 @@ function updateGlobalMetrics() {
         // Hair habits
         "hair_hab_1", "hair_hab_2", "hair_hab_3", "hair_hab_4", "hair_hab_5"
     ];
-    
+
     let syllabusChecked = 0;
     syllabusIds.forEach(id => {
         if (state.completedGlobalTasks[id]) syllabusChecked++;
     });
 
     const syllabusMax = syllabusIds.length;
-    
+
     // 3. Combined Progress Score
     const globalProgressPct = Math.round(
         ((totalAdherencePoints + syllabusChecked) / (maxPossibleAdherencePoints + syllabusMax)) * 100
@@ -339,7 +340,7 @@ function updateGlobalMetrics() {
     for (let day = 1; day <= TOTAL_DAYS; day++) {
         const dayChecks = state.daysAdherence[day] || [];
         const dayPct = dayChecks.length / DAILY_HABITS.length;
-        
+
         if (dayPct >= 0.8) {
             currentStreak++;
         } else if (dayChecks.length > 0) {
@@ -362,7 +363,7 @@ function updateGlobalMetrics() {
     const todayChecks = state.daysAdherence[state.activeDay] || [];
     const todayPct = Math.round((todayChecks.length / DAILY_HABITS.length) * 100);
     document.getElementById("todayProgressPercent").innerText = `${todayPct}%`;
-    
+
     const circle = document.getElementById("todayProgressRing");
     if (circle) {
         const radius = circle.r.baseVal.value;
@@ -396,23 +397,23 @@ function renderCalendarGrid() {
         const btn = document.createElement("button");
         btn.type = "button";
         btn.classList.add("calendar-day-btn");
-        
+
         // Calculate status classes
         const dayChecks = state.daysAdherence[day] || [];
         const compliance = dayChecks.length / DAILY_HABITS.length;
-        
+
         if (compliance >= 0.8) {
             btn.classList.add("adhered");
         } else if (compliance > 0) {
             btn.classList.add("missed");
         }
-        
+
         if (day === state.activeDay) {
             btn.classList.add("active");
         }
 
         btn.innerHTML = `<span>Day</span><strong>${day}</strong>`;
-        
+
         btn.addEventListener("click", () => {
             setActiveDay(day);
         });
@@ -423,10 +424,10 @@ function renderCalendarGrid() {
 
 function setActiveDay(dayNum) {
     state.activeDay = dayNum;
-    
+
     // Save state
     saveState();
-    
+
     // Update Calendar display
     const buttons = document.querySelectorAll(".calendar-day-btn");
     buttons.forEach((btn, index) => {
@@ -439,10 +440,10 @@ function setActiveDay(dayNum) {
     // Update daily editor header
     document.getElementById("activeDayTitle").innerText = `Day ${dayNum} Details`;
     document.getElementById("activeDayLabel").innerText = `Day ${dayNum}`;
-    
+
     // Render the checklist for this specific day
     renderDailyChecklist();
-    
+
     // Update Ring widget
     updateGlobalMetrics();
 }
@@ -509,12 +510,12 @@ function toggleDailyHabit(habitId, isChecked) {
 
     // Save and redraw
     saveState();
-    
+
     // Update daily adherence badge
     const pct = Math.round((currentList.length / DAILY_HABITS.length) * 100);
     const badge = document.getElementById("dayAdherenceBadge");
     badge.innerText = `${pct}% Compliance`;
-    
+
     if (pct >= 80) {
         badge.style.background = "rgba(16, 185, 129, 0.15)";
         badge.style.color = "var(--accent)";
@@ -554,25 +555,25 @@ function toggleTimer() {
         // Start timer
         isTimerRunning = true;
         btn.innerHTML = '<i data-lucide="pause"></i> Pause';
-        
+
         pomodoroTimer = setInterval(() => {
             timerSecondsRemaining--;
             updateTimerDisplay();
-            
+
             if (timerSecondsRemaining <= 0) {
                 clearInterval(pomodoroTimer);
                 isTimerRunning = false;
                 btn.innerHTML = '<i data-lucide="play"></i> Start';
-                
+
                 // Trigger alarm sound
                 playAlarmSound();
-                
+
                 // Handle mode transition
                 if (currentTimerMode === "work") {
                     state.completedPomodoros++;
                     document.getElementById("completedPomodoros").innerText = state.completedPomodoros;
                     saveState();
-                    
+
                     alert("🎯 Focus Session Complete! Time for a 10 minute break.");
                     setTimerMode("break");
                 } else {
@@ -590,7 +591,7 @@ function resetTimer() {
     isTimerRunning = false;
     document.getElementById("timerToggleBtn").innerHTML = '<i data-lucide="play"></i> Start';
     if (window.lucide) window.lucide.createIcons();
-    
+
     // Restore default seconds for current mode
     timerSecondsRemaining = currentTimerMode === "work" ? 3000 : 600;
     timerTotalSeconds = timerSecondsRemaining;
@@ -599,29 +600,29 @@ function resetTimer() {
 
 function setTimerMode(mode) {
     currentTimerMode = mode;
-    
+
     // Update active class on buttons
     document.getElementById("modeWork").classList.toggle("active", mode === "work");
     document.getElementById("modeBreak").classList.toggle("active", mode === "break");
-    
+
     // Set timing durations (50m Focus vs 10m Break)
     timerSecondsRemaining = mode === "work" ? 3000 : 600;
     timerTotalSeconds = timerSecondsRemaining;
-    
+
     document.getElementById("timerStatus").innerText = mode === "work" ? "Deep Work Block" : "System Rest Break";
     document.getElementById("timerStatus").style.color = mode === "work" ? "var(--primary)" : "var(--accent)";
-    
+
     resetTimer();
 }
 
 function updateTimerDisplay() {
     const mins = Math.floor(timerSecondsRemaining / 60);
     const secs = timerSecondsRemaining % 60;
-    
+
     // Format: MM:SS
     const formatted = `${String(mins).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
     document.getElementById("timerDisplay").innerText = formatted;
-    
+
     // Update circular progress ring
     const ring = document.getElementById("timerRingBar");
     if (ring) {
@@ -635,29 +636,29 @@ function updateTimerDisplay() {
 // Play synthesizer alert tone using Web Audio API
 function playAlarmSound() {
     if (!isSoundEnabled) return;
-    
+
     try {
         const AudioCtx = window.AudioContext || window.webkitAudioContext;
         if (!AudioCtx) return;
-        
+
         const ctx = new AudioCtx();
-        
+
         // Play 3 beeps
         for (let i = 0; i < 3; i++) {
             const time = ctx.currentTime + (i * 0.4);
             const osc = ctx.createOscillator();
             const gain = ctx.createGain();
-            
+
             osc.type = "sine";
             osc.frequency.setValueAtTime(880, time); // A5 note
-            
+
             gain.gain.setValueAtTime(0, time);
             gain.gain.linearRampToValueAtTime(0.3, time + 0.05);
             gain.gain.exponentialRampToValueAtTime(0.001, time + 0.3);
-            
+
             osc.connect(gain);
             gain.connect(ctx.destination);
-            
+
             osc.start(time);
             osc.stop(time + 0.35);
         }
@@ -673,7 +674,7 @@ function playAlarmSound() {
 function addWater(amountMl) {
     state.hydration.amount += amountMl;
     if (state.hydration.amount > 6000) state.hydration.amount = 6000; // Cap
-    
+
     saveState();
     updateWaterUI();
 }
@@ -688,18 +689,18 @@ function updateWaterUI() {
     const current = state.hydration.amount;
     const target = state.settings.waterTarget;
     const pct = Math.round((current / target) * 100);
-    
+
     document.getElementById("waterLogged").innerText = current;
     document.getElementById("waterPercent").innerText = `${pct}%`;
-    
+
     // Scale water wave filling height (capped at 100%)
     const fillHeight = Math.min(pct, 100);
     document.getElementById("waterLevel").style.height = `${fillHeight}%`;
-    
+
     // Auto check daily habit checkmark once target hydration is hit!
     const targetChecked = current >= target;
     const dailyHabitCheckbox = document.getElementById("habit_health_water");
-    
+
     if (dailyHabitCheckbox && dailyHabitCheckbox.checked !== targetChecked) {
         // Toggle the habit in data
         toggleDailyHabit("health_water", targetChecked);
@@ -719,7 +720,7 @@ window.resetWater = resetWater;
 function logWeight() {
     const weightVal = parseFloat(document.getElementById("newWeightInput").value);
     const weekSelect = parseInt(document.getElementById("weightWeekSelect").value);
-    
+
     if (isNaN(weightVal) || weightVal <= 0) {
         alert("Please enter a valid weight (e.g. 71.5).");
         return;
@@ -735,14 +736,14 @@ function logWeight() {
 
     // Sort logs by week index
     state.weightLogs.sort((a, b) => a.week - b.week);
-    
+
     // Save state
     saveState();
-    
+
     // Redraw graphs and logs
     renderWeightChart();
     renderWeightHistory();
-    
+
     // Reset weight input
     document.getElementById("newWeightInput").value = "";
 }
@@ -767,9 +768,9 @@ function renderWeightHistory() {
     state.weightLogs.forEach(log => {
         const item = document.createElement("div");
         item.classList.add("weight-history-item");
-        
+
         const label = log.week === 0 ? "Start Point" : `Week ${log.week}`;
-        
+
         item.innerHTML = `
             <span><strong>${label}:</strong> ${log.weight.toFixed(1)} kg</span>
             <button onclick="removeWeightLog(${log.week})" title="Delete entry">&times;</button>
@@ -800,7 +801,7 @@ function renderWeightChart() {
     // Calculate Y scale range (min-max weight limits)
     let minW = Math.min(...logs.map(l => l.weight), state.settings.targetWeight) - 1.0;
     let maxW = Math.max(...logs.map(l => l.weight), state.settings.startWeight) + 1.0;
-    
+
     if (minW === maxW) {
         minW -= 2;
         maxW += 2;
@@ -811,7 +812,7 @@ function renderWeightChart() {
     for (let i = 0; i <= gridCount; i++) {
         const yVal = minW + (i / gridCount) * (maxW - minW);
         const yPos = height - margin.bottom - (i / gridCount) * chartHeight;
-        
+
         // Draw grid horizontal line
         const line = document.createElementNS("http://www.w3.org/2000/svg", "line");
         line.setAttribute("x1", margin.left);
@@ -870,7 +871,7 @@ function renderWeightChart() {
         for (let i = 1; i < points.length; i++) {
             d += ` L ${points[i].x} ${points[i].y}`;
         }
-        
+
         const path = document.createElementNS("http://www.w3.org/2000/svg", "path");
         path.setAttribute("d", d);
         path.setAttribute("class", "chart-line");
@@ -885,12 +886,12 @@ function renderWeightChart() {
         circle.setAttribute("cy", pt.y);
         circle.setAttribute("r", "4");
         circle.setAttribute("class", "chart-point");
-        
+
         // Add tooltip
         const title = document.createElementNS("http://www.w3.org/2000/svg", "title");
         title.textContent = `${pt.weight.toFixed(1)} kg`;
         circle.appendChild(title);
-        
+
         svg.appendChild(circle);
 
         // Weight text tag above point
@@ -931,12 +932,12 @@ window.removeWeightLog = removeWeightLog;
 function saveCycleData() {
     const dateInput = document.getElementById("lastPeriodDate").value;
     const lengthInput = parseInt(document.getElementById("cycleLengthInput").value);
-    
+
     if (!dateInput) {
         alert("Please select a valid period start date.");
         return;
     }
-    
+
     if (isNaN(lengthInput) || lengthInput < 20 || lengthInput > 45) {
         alert("Cycle length should range logically between 20 and 45 days.");
         return;
@@ -944,7 +945,7 @@ function saveCycleData() {
 
     state.cycleTracker.lastPeriodDate = dateInput;
     state.cycleTracker.cycleLength = lengthInput;
-    
+
     saveState();
     renderCycleCalculations();
 }
@@ -952,7 +953,7 @@ function saveCycleData() {
 function renderCycleCalculations() {
     const lPeriod = state.cycleTracker.lastPeriodDate;
     const cLength = state.cycleTracker.cycleLength;
-    
+
     const container = document.getElementById("cycleResults");
     if (!container) return;
 
@@ -966,27 +967,27 @@ function renderCycleCalculations() {
     // 1. Calculate Estimated Next Period
     const lastDate = new Date(lPeriod);
     const nextDate = new Date(lastDate.getTime() + cLength * 24 * 60 * 60 * 1000);
-    
+
     const options = { month: 'short', day: 'numeric', year: 'numeric' };
     document.getElementById("nextPeriodText").innerText = nextDate.toLocaleDateString("en-US", options);
 
     // 2. Estimate Current Hormonal Phase
     const today = new Date();
-    
+
     // Clear hours for accurate day counts
-    today.setHours(0,0,0,0);
-    lastDate.setHours(0,0,0,0);
-    
+    today.setHours(0, 0, 0, 0);
+    lastDate.setHours(0, 0, 0, 0);
+
     const timeDiff = today.getTime() - lastDate.getTime();
     let currentDayOfCycle = Math.floor(timeDiff / (1000 * 60 * 60 * 24));
-    
+
     if (currentDayOfCycle < 0) {
         // Handle input dates set in the future
         document.getElementById("currentPhaseText").innerText = "Not Started";
         document.getElementById("phaseExplanationText").innerText = "Your entered period date is set in the future. The tracker will activate once that date is reached.";
         return;
     }
-    
+
     // Modulo cycle length to get current relative day
     currentDayOfCycle = (currentDayOfCycle % cLength) + 1;
 
@@ -998,7 +999,7 @@ function renderCycleCalculations() {
         explanation = `<strong>Cycle Day ${currentDayOfCycle}:</strong> Estrogen and progesterone are at their lowest. You may experience lower physical energy. Focus on iron-rich foods, deep rest, and gentle yin yoga flows. Avoid extreme HIIT workouts today.`;
     } else if (currentDayOfCycle >= 6 && currentDayOfCycle <= 13) {
         phaseName = "🌱 Follicular Phase";
-        explanation = `<strong>Cycle Day ${currentDayOfCycle}:</strong> Estrogen is rising, promoting neural plasticity, positive mood, and high cellular energy. Optimal window for heavy strength training, learning complex ML/AI concepts, and solving intense DSA problems.`;
+        explanation = `<strong>Cycle Day ${currentDayOfCycle}:</strong> Estrogen is rising, promoting neural plasticity, positive mood, and high cellular energy. Optimal window for heavy strength training, tackling tough GATE core subjects, and solving intense DSA problems.`;
     } else if (currentDayOfCycle === 14) {
         phaseName = "🌸 Ovulatory Phase";
         explanation = `<strong>Cycle Day ${currentDayOfCycle}:</strong> Peak estrogen and surge in luteinizing hormone. Stamina, confidence, and verbal fluency are at their monthly maximums. Take advantage of this window for deep focus and heavy cardio blocks.`;
@@ -1021,11 +1022,11 @@ function saveSettings() {
     const startW = parseFloat(document.getElementById("setStartWeight").value);
     const targetW = parseFloat(document.getElementById("setTargetWeight").value);
 
-    if (isNaN(targetStudy) || targetStudy < 4 || targetStudy > 18) {
-        alert("Daily study hours target should be set between 4 and 18 hours.");
+    if (isNaN(targetStudy) || targetStudy < 2 || targetStudy > 10) {
+        alert("Daily post-college study hours target should be set between 2 and 10 hours.");
         return;
     }
-    
+
     if (isNaN(targetWater) || targetWater < 1500 || targetWater > 6000) {
         alert("Daily hydration target should range between 1500ml and 6000ml.");
         return;
@@ -1053,31 +1054,31 @@ function saveSettings() {
     renderWeightChart();
     renderWeightHistory();
     updateWaterUI();
-    
+
     alert("Configurations saved successfully!");
 }
 
 function resetAllData() {
     if (confirm("🚨 WARNING: This will permanently wipe all checklists, logs, custom weight progress, and cycle calendars. Are you sure you want to proceed?")) {
         state = JSON.parse(JSON.stringify(defaultState));
-        
+
         // Reset local storage
         localStorage.removeItem(STORAGE_KEY);
-        
+
         // Re-initialize state
         loadState();
-        
+
         // Uncheck all check boxes manually in active UI view
         const checkboxes = document.querySelectorAll("input[type='checkbox']");
         checkboxes.forEach(c => c.checked = false);
-        
+
         renderTabs();
         renderCalendarGrid();
         renderDailyChecklist();
         renderWeightChart();
         renderWeightHistory();
         renderCycleCalculations();
-        
+
         alert("Application reset to factory default.");
     }
 }
@@ -1091,8 +1092,8 @@ function loadMockProgressData() {
         // Syllabus completions
         state.completedGlobalTasks["task_ml_1"] = true;
         state.completedGlobalTasks["task_ml_2"] = true;
-        state.completedGlobalTasks["task_ai_1"] = true;
-        state.completedGlobalTasks["task_comp_1"] = true;
+        state.completedGlobalTasks["task_gate_1"] = true;
+        state.completedGlobalTasks["task_gate_5"] = true;
         state.completedGlobalTasks["task_dsa_1"] = true;
         state.completedGlobalTasks["sleep_1"] = true;
         state.completedGlobalTasks["sleep_2"] = true;
@@ -1104,8 +1105,8 @@ function loadMockProgressData() {
         // Daily adherence history: simulate 12 days of checkmarks
         for (let d = 1; d <= 12; d++) {
             // Check off 9 random habits for each day (enough for 80%+ adherence)
-            state.daysAdherence[d] = ["study_ml", "study_ai", "study_compiler", "study_dsa", "fit_cardio", "fit_yoga", "hair_scalp", "health_water", "health_sleep"];
-            
+            state.daysAdherence[d] = ["study_ml", "study_gate1", "study_gate2", "study_dsa", "fit_cardio", "fit_yoga", "hair_scalp", "health_water", "health_sleep"];
+
             // Randomly slip in strength on odd days
             if (d % 2 !== 0) {
                 state.daysAdherence[d].push("fit_strength");
@@ -1140,7 +1141,7 @@ function loadMockProgressData() {
         state.activeDay = 13;
 
         saveState();
-        
+
         // Refresh everything
         renderTabs();
         renderCalendarGrid();
@@ -1148,7 +1149,7 @@ function loadMockProgressData() {
         renderWeightChart();
         renderWeightHistory();
         renderCycleCalculations();
-        
+
         alert("Mock demo data loaded successfully! Explore the tabs to see visual charts, streak metrics, and calendar markings.");
     }
 }
